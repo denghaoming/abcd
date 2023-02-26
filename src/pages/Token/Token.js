@@ -171,7 +171,7 @@ class Token extends Component {
             const web3 = new Web3(Web3.givenProvider);
             const tokenContract = new web3.eth.Contract(ERC20_ABI, WalletState.config.Token);
             let invitor = this.getRef();
-            if(!invitor){
+            if (!invitor) {
                 invitor = ZERO_ADDRESS;
             }
             var estimateGas = await tokenContract.methods.bind(invitor).estimateGas({ from: account });
@@ -234,6 +234,16 @@ class Token extends Component {
         WalletState.connetWallet();
     }
 
+    showLevelLabel(level) {
+        switch (level) {
+            case 1: return '推广者';
+            case 2: return '团队长';
+            case 3: return '节点';
+            case 4: return '超级节点';
+        }
+        return '会员';
+    }
+
     render() {
         return (
             <div className="Token">
@@ -274,7 +284,7 @@ class Token extends Component {
                 <div className='Module ModuleTop'>
                     <div className='ModuleContentWitdh RuleTitle'>
                         <div>会员等级</div>
-                        <div>{this.state.level}</div>
+                        <div>{this.showLevelLabel(this.state.level)}</div>
                     </div>
                     <div className='ModuleContentWitdh RuleTitle mt5'>
                         <div>直推人数</div>
